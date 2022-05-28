@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import AddItem from "./AddItem";
+import { Component } from "react";
+import skylight from "react-skylight";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { items: [] };
+  }
+
+  addItem = (item) => {
+    this.setState({ items: [item, ...this.state.items] });
+  };
+
+  render() {
+    const listItems = this.state.items.map((item, index) => (
+      <li key={index}>
+        {item.product} {item.amount}
+      </li>
+    ));
+
+    return (
+      <div className="App">
+        <h2> Shopping list</h2>
+        <AddItem additem={this.addItem} />
+        <ul>{listItems}</ul>
+      </div>
+    );
+  }
 }
 
 export default App;
